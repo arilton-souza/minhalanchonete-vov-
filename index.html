@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lanchonete da Vovó - Produtos</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Menu de Produtos</h1>
+    <div class="menu">
+        {% for produto in produtos %}
+        <div class="produto">
+            <h2>{{ produto.nome }}</h2>
+            <p>{{ produto.descricao }}</p>
+            <p>Preço: R$ {{ produto.preco }}</p>
+            {% if produto.imagem %}
+            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+            {% endif %}
+            <form method="post" action="{% url 'adicionar_ao_carrinho' produto.id %}">
+                {% csrf_token %}
+                <button type="submit">Adicionar ao Carrinho</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Lanchonete da Vovó</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .menu-section {
+            margin-bottom: 20px;
+        }
+        .menu-section h2 {
+            color: #d35400;
+        }
+        .produto {
+            margin-bottom: 10px;
+        }
+        .produto p {
+            margin: 5px 0;
+        }
+        .preco {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Menu da Lanchonete da Vovó</h1>
+
+    <!-- Seção Pães Fresquinhos -->
+    <div class="menu-section">
+        <h2>Pães Fresquinhos</h2>
+        <div class="produto">
+            <p><strong>Pão Francês crocante</strong></p>
+            <p class="preco">R$ 1,20</p>
+            <p>Crocante por fora, macio por dentro.</p>
+        </div>
+        <div class="produto">
+            <p><strong>Pão de Queijo dourado</strong></p>
+            <p class="preco">R$ 3,10</p>
+            <p>Tradicional, saboroso e irresistível.</p>
+        </div>
+        <div class="produto">
+            <p><strong>Pão Ciabatta rústico</strong></p>
+            <p class="preco">R$ 4,20</p>
+            <p>Perfeito para acompanhar sopas e saladas.</p>
+        </div>
+        <div class="produto">
+            <p><strong>Pão de Mel caseiro</strong></p>
+            <p class="preco">R$ 2,90</p>
+            <p>Doce e aromático, ideal para o café da tarde.</p>
+        </div>
+    </div>
+
+    <!-- Seção Doces Deliciosos -->
+    <div class="menu-section">
+        <h2>Doces Deliciosos</h2>
+        <div class="produto">
+            <p><strong>Bolo de Cenoura com cobertura</strong></p>
+            <p class="preco">R$ 3,50 o pedaço</p>
+            <p>Clássico e saboroso, com cobertura cremosa.</p>
+        </div>
+        <div class="produto">
+            <p><strong>Brigadeiros caseiros</strong></p>
+            <p class="preco">R$ 3,00</p>
+            <p>Doce irresistível, perfeito para qualquer ocasião.</p>
+        </div>
+        <div class="produto">
+            <p><strong>Sonhos recheados</strong></p>
+            <p class="preco">R$ 4,00</p>
+            <p>Leves e deliciosos, com recheio cremoso.</p>
+        </div>
+        <div class="produto">
+            <p><strong>Torta de Limão</strong></p>
+            <p class="preco">R$ 5,50</p>
+            <p>Azedinha e refrescante, ideal para o verão.</p>
+        </div>
+    </div>
+
+</body>
+</html>
