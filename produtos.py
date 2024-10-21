@@ -2,38 +2,40 @@ from django.shortcuts import render
 from .models import Produto, Categoria
 
 def listar_produtos(request):
-    produtos = Produto.objects.all()
+    try:
+        # Obtém todos os produtos do banco de dados
+        produtos = Produto.objects.all().select_related('categoria')
+    except Produto.DoesNotExist:
+        produtos = None  # Caso não haja produtos, a variável será None
+
+    # Renderiza o template com a lista de produtos
     return render(request, 'produtos/listar_produtos.html', {'produtos': produtos})
 
-# Pão Francês crocante
-# "valor 1,20"
-#Crocante por fora, macio por dentro.
+# Dados fictícios de produtos:
 
-#Pão de Queijo dourado
-# "valor 3,10"
-#Tradicional, saboroso e irresistível.
+# Categoria: Pães
+# Pão Francês crocante - "R$ 1,20"
+# Descrição: Crocante por fora, macio por dentro.
 
-#Pão Ciabatta rústico
-# "valor 4,20"
-#Perfeito para acompanhar sopas e saladas.
+# Pão de Queijo dourado - "R$ 3,10"
+# Descrição: Tradicional, saboroso e irresistível.
 
-#Pão de Mel caseiro
-# "valor 2,90"
-#Doce e aromático, ideal para o café da tarde.
+# Pão Ciabatta rústico - "R$ 4,20"
+# Descrição: Perfeito para acompanhar sopas e saladas.
 
-#Doces Deliciosos
-#Bolo de Cenoura com cobertura
-# "valor 3,50 o pedaço"
-#Clássico e saboroso, com cobertura cremosa.
+# Pão de Mel caseiro - "R$ 2,90"
+# Descrição: Doce e aromático, ideal para o café da tarde.
 
-#Brigadeiros caseiros
-# "valor 3,00"
-#Doce irresistível, perfeito para qualquer ocasião.
+# Categoria: Doces
+# Bolo de Cenoura com cobertura - "R$ 3,50 o pedaço"
+# Descrição: Clássico e saboroso, com cobertura cremosa.
 
-#Sonhos rechead0
-# "valor 4,00" 
-#Leves e deliciosos, com recheio cremoso.
+# Brigadeiros caseiros - "R$ 3,00"
+# Descrição: Doce irresistível, perfeito para qualquer ocasião.
 
-#Torta de Limão
-#"valor"5,50"
-#Azedinha e refrescante, ideal para o verão.
+# Sonhos recheados - "R$ 4,00"
+# Descrição: Leves e deliciosos, com recheio cremoso.
+
+# Torta de Limão - "R$ 5,50"
+# Descrição: Azedinha e refrescante, ideal para o verão.
+
